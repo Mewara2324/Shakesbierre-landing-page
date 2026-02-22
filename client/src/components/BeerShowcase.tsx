@@ -6,7 +6,7 @@ import { ParticleBackground } from "@/components/ParticleBackground";
 import beer1Img from "@assets/beer_1771744334422.png";
 import beer2Img from "@assets/beer-2_1771744334415.jpg";
 import beer3Img from "@assets/beer-3_1771744334422.png";
-import beer4Img from "@assets/shakesbierre-drink-4_1771744334422.webp"; // Using available drink as fallback if needed or another beer
+import beer4Img from "@assets/shakesbierre-drink-4_1771742996776.webp"; // Using available drink as fallback if needed or another beer
 
 const beers = [
   { id: 1, name: "Romeo's Swagger", img: beer1Img, desc: "A smooth wheat ale for the hopeless romantic", gradient: "radial-gradient(#3D1A00, #000)" },
