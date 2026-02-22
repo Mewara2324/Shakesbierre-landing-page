@@ -3,7 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { ChevronLeft, ChevronRight, MapPin, Clock, Phone, Instagram, Facebook, Wifi, Car, Accessibility, GlassWater } from "lucide-react";
 
+import BeerShowcase from "@/components/BeerShowcase";
+
 import fullLogo from "@assets/shakesbierre-full-logo_1771742996777.png";
+import glitterLogo from "@assets/Gemini_Generated_Image_1j12dj1j12dj1j12_1771742996775.png";
 import heroImg from "@assets/shakesbierre-hero_1771742996777.jpg";
 import ambienceImg from "@assets/shakesbierre-ambience_1771742996775.jpg";
 import rooftopImg from "@assets/shakesbierre-rooftop_1771742996777.jpg";
@@ -83,9 +86,11 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-3 select-none cursor-pointer">
-          <span className="font-sans-bold text-white text-xl tracking-wider">boCHE</span>
-          <span className="font-display text-gold text-lg">&</span>
-          <span className="font-display text-gold-gradient text-xl">ShakesBierre</span>
+          <img 
+            src={glitterLogo} 
+            alt="Logo" 
+            className="h-16 w-16 object-cover rounded-full transition-all duration-300 drop-shadow-[0_0_12px_rgba(201,148,42,0.6)] hover:drop-shadow-[0_0_22px_rgba(255,215,0,0.9)]" 
+          />
         </div>
         
         <div className="hidden lg:flex items-center gap-8">
@@ -118,7 +123,11 @@ const Hero = () => {
           transition={{ duration: 1.5, delay: 2.2 }}
           className="mb-8 hidden md:block"
         >
-          <img src={fullLogo} alt="boCHE & ShakesBierre" className="h-40 object-contain mx-auto" />
+          <img 
+            src={fullLogo} 
+            alt="boCHE & ShakesBierre" 
+            className="w-[clamp(220px,30vw,380px)] h-auto object-contain mx-auto drop-shadow-[0_0_30px_rgba(201,148,42,0.5)]" 
+          />
         </motion.div>
 
         <motion.div
@@ -280,8 +289,8 @@ const Zones = () => {
             className="absolute inset-0"
           >
             <div className="absolute inset-0 bg-black">
-              <img src={zones[active].img} alt={zones[active].name} className="w-full h-full object-cover opacity-50 mix-blend-luminosity" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080500] via-black/40 to-transparent" />
+              <img src={zones[active].img} alt={zones[active].name} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/35 bg-gradient-to-t from-[#080500] via-transparent to-transparent" />
             </div>
 
             <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 max-w-5xl mx-auto">
@@ -289,7 +298,7 @@ const Zones = () => {
                 <span className="font-heading text-gold text-xl md:text-3xl">{zones[active].id} <span className="text-gold/40 text-sm md:text-lg">/ 04</span></span>
                 <span className="bg-charcoal border border-gold/30 px-3 py-1 font-heading text-cream text-[10px] tracking-widest">{zones[active].badge}</span>
               </div>
-              <h3 className="font-display text-4xl md:text-7xl text-white mb-4 drop-shadow-2xl">{zones[active].name}</h3>
+              <h3 className="font-display text-white mb-4 drop-shadow-2xl text-[clamp(1.4rem,3vw,2.4rem)] tracking-[0.12em] uppercase">{zones[active].name}</h3>
               <p className="font-body italic text-cream/90 text-xl md:text-3xl max-w-2xl">{zones[active].desc}</p>
             </div>
           </motion.div>
@@ -558,6 +567,7 @@ export default function Home() {
         <main className="relative z-10">
           <Hero />
           <About />
+          <BeerShowcase />
           <Zones />
           <Menu />
           <Amenities />

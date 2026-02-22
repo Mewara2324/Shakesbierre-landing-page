@@ -1,0 +1,126 @@
+Here are the 4 precise surgical update instructions for your Replete developer — copy-paste ready:
+
+---
+
+## UPDATE 1 — Hero Logo Size
+
+**File**: Hero section component
+**Change**: Find the logo image/SVG emblem in the hero center stack. Increase its rendered size.
+
+```
+Current:  width: 120px (or whatever it is)
+Update:   width: clamp(220px, 30vw, 380px)
+          height: auto
+          Add: filter: drop-shadow(0 0 30px rgba(201,148,42,0.5))
+```
+> Do NOT change position, z-index, or animation — only the size and the glow filter.
+
+---
+
+## UPDATE 2 — Navbar Logo Swap
+
+**File**: Navbar component
+**Change**:
+- Remove the text-based brand name (`boCHE & ShakesBierre` typography) from top-left
+- Replace with `<img src="skashbierre-logo.jpg" />` (the gold glitter circle logo)
+- Style it as:
+```css
+height: 64px;
+width: 64px;
+object-fit: cover;
+border-radius: 50%;
+filter: drop-shadow(0 0 12px rgba(201,148,42,0.6));
+transition: filter 0.3s;
+```
+```css
+/* on hover */
+filter: drop-shadow(0 0 22px rgba(255,215,0,0.9));
+```
+> Keep all nav links, CTA button, scroll behavior, and sticky logic completely untouched.
+
+---
+
+## UPDATE 3 — Zones/Vibe Section Image Fix + Heading Size
+
+**File**: Zones/Vibe carousel component
+
+**Fix A — Remove greyscale filter:**
+Find the image element inside each zone card. Remove any of these if present:
+```css
+/* DELETE any of these lines */
+filter: grayscale(100%);
+filter: grayscale(1);
+filter: gray;
+-webkit-filter: grayscale(100%);
+```
+If images are set via CSS background with a dark overlay, find the overlay and change:
+```css
+/* Before */
+background: rgba(0,0,0,0.7);  /* or whatever dark overlay */
+
+/* After */
+background: rgba(0,0,0,0.35);
+```
+> Images should show natural color with just a light dark vignette for text readability.
+
+**Fix B — Zone heading size:**
+Find the zone name heading inside the card. Update font size only:
+```css
+/* Before (likely) */
+font-size: clamp(2.5rem, 6vw, 5rem);
+
+/* After */
+font-size: clamp(1.4rem, 3vw, 2.4rem);
+letter-spacing: 0.12em;
+```
+> Keep font-family (Cinzel Decorative), color (white/gold), and text-shadow untouched.
+
+---
+
+## UPDATE 4 — Beer Images Animated Showcase (Future-Ready Insert)
+
+**File**: Create new component `BeerShowcase.jsx` (or equivalent) — insert it **between the About section and the Zones section** in page order.
+
+**Instructions for developer:**
+
+Build a horizontal scroll ticker / marquee strip **plus** a spotlight card that swaps on click — structured to accept image paths. Use this exact placeholder structure so images slot in with zero refactoring later:
+
+```jsx
+const beers = [
+  { id: 1, name: "Romeo's Swagger",    img: "/beers/romeos-swagger.jpg",    desc: "A smooth wheat ale for the hopeless romantic" },
+  { id: 2, name: "Ale Othello",         img: "/beers/ale-othello.jpg",        desc: "Bold, dark, and dangerously complex" },
+  { id: 3, name: "Taming of the Brew", img: "/beers/taming-brew.jpg",        desc: "A wild IPA with a spicy finish" },
+  { id: 4, name: "Brisky Brutus",       img: "/beers/brisky-brutus.jpg",      desc: "Crisp lager with a character-defining bite" },
+];
+```
+
+**Layout:**
+- Section background: `#000` + active gold particle layer
+- Section heading: `OUR CRAFT` in Cinzel Decorative gold + subtitle *"Brewed with Intention. Poured with Pride."*
+- **Top strip**: Infinite auto-scrolling horizontal marquee of all beer names separated by `★` — CSS `@keyframes marquee`, no JS needed
+- **Main area**: Large center spotlight card showing active beer — image fills card, name in Cinzel Decorative white below, description in Cormorant italic gold, animated `opacity + scale` swap on change (Framer `AnimatePresence`)
+- **Thumbnail row below**: 4 small circular beer bottle thumbnails — clicking one updates the spotlight card
+- **Active thumbnail**: gold ring border + `scale(1.1)`
+- **Until real images arrive**: Each card shows a rich dark gradient unique per beer:
+```css
+beer[0]: radial-gradient(#3D1A00, #000)   /* deep amber */
+beer[1]: radial-gradient(#0A0A1A, #000)   /* near-black */
+beer[2]: radial-gradient(#1A0A00, #000)   /* dark copper */
+beer[3]: radial-gradient(#0D1500, #000)   /* dark forest */
+```
+- When you provide real images → simply drop `.jpg` files into `/public/beers/` folder — **zero code changes needed**
+
+**Animation:**
+```js
+// Spotlight card swap
+initial:  { opacity: 0, scale: 0.94, y: 20 }
+animate:  { opacity: 1, scale: 1,    y: 0  }
+exit:     { opacity: 0, scale: 1.04, y: -20 }
+transition: { duration: 0.45, ease: "easeInOut" }
+```
+
+> ⚠️ Do NOT modify Hero, Navbar, Zones, Menu, Amenities, Footer, particle system, cursor, or curtain reveal. Only insert this new component between About and Zones in the render/page order.
+
+---
+
+**Send these 4 blocks to your Replete developer and drop the beer images whenever you have them — the component is ready to receive them.**
