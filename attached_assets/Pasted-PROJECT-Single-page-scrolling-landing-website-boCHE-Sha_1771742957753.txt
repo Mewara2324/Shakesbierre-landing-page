@@ -1,0 +1,209 @@
+PROJECT: Single-page scrolling landing website — boCHE & ShakesBierre
+Stack: React + Framer Motion + Tailwind (or vanilla HTML/CSS/JS — developer's choice)
+Goal: Premium hospitality conversion page. Every pixel must feel like ₹3,00,000 of craft.
+
+1. DESIGN SYSTEM
+Color Palette — strict:
+--black:        #000000
+--black-rich:   #080500  (primary section bg)
+--charcoal:     #110D00  (alternate section bg)
+--gold:         #C9942A
+--gold-bright:  #FFD700
+--gold-pale:    #F0D080
+--gold-gradient: linear-gradient(135deg, #8B6914, #FFD700, #C9942A, #FFD700, #8B6914)
+--red-neon:     #FF2244  (boCHE accent ONLY — do not remove)
+--white:        #FFFFFF
+--cream:        #F5E6C8
+Typography:
+
+Display/Hero headings → Cinzel Decorative (Google Fonts, weight 900) — matches "SHAKESBIERRE" logo letterforms
+Section headings → Cinzel (weight 600–700)
+Body/descriptions → Cormorant Garamond (weight 300–400, italic for quotes)
+boCHE brand name → bold white sans-serif, slightly rounded (match logo chunky style — use Nunito Black or Poppins 900)
+"Club" accent word → Dancing Script Bold in #FF2244 with red text-shadow neon glow effect
+
+Textures (implement as layered CSS/canvas):
+
+Primary BG: Pure #000 with animated CSS radial-gradient gold shimmer breathing slowly
+Stardust Layer: A canvas or CSS particle system creating floating gold dust particles — this is NON-NEGOTIABLE, it is the brand's signature visual (reference Logo 2's glitter halo and Logo 3's gold column splashes)
+Alternate sections: #110D00 charcoal with a subtle noise texture overlay at 3% opacity
+Section dividers: Full-width ★ ─────── ★ ─────── ★ in gold, animated fade-in on scroll
+
+Global Effects:
+
+Custom cursor: small gold dot + larger gold ring (mix-blend-mode: difference)
+Parallax depth on all hero and section images (scroll-driven)
+All text reveals: character-by-character or word-by-word stagger using Framer Motion (staggerChildren: 0.04)
+Scroll-triggered entrance: elements slide up + fade in with gold shimmer flash on arrival
+Page load: full-screen theatrical curtain reveal (gold line draws across then splits open)
+
+
+2. NAVBAR
+
+Sticky top, starts fully transparent
+On scroll past 80px → transitions to rgba(0,0,0,0.93) + backdrop-filter: blur(20px) + border-bottom: 1px solid rgba(201,148,42,0.25)
+Logo: Use the ShakesBierre quill+silhouette SVG mark left-aligned, with "boCHE & ShakesBierre" in split typography (boCHE in white Poppins Black, & in gold Cinzel, ShakesBierre in gold Cinzel Decorative)
+Nav links: ABOUT · ZONES · MENU · AMENITIES · CONTACT — Cinzel, 0.15em letter-spacing, uppercase, cream color → gold hover with underline draw animation
+CTA Button right: RESERVE A TABLE — gold border, gold text, hover fills gold with black text, subtle shimmer sweep on hover
+Mobile: Hamburger → full-screen overlay menu with gold stardust bg and staggered link entrance
+
+
+3. HERO SECTION
+
+Full viewport height (100svh)
+Background: Deep black with animated gold particle field (50–80 floating particles, varying opacity 0.3–0.8, slow drift upward, occasional bright flash)
+Center content stack:
+
+Quill + silhouette SVG emblem — 120px — draws in via SVG stroke animation (2s, gold)
+boCHE — white, Poppins Black, 48px tracking-wide
+& — gold, Cinzel Decorative, 32px
+ShakesBierre — gold gradient text, Cinzel Decorative, clamp(3rem, 8vw, 7rem), with metallic shine sweep animation (CSS background-position keyframe)
+Subtitle line: BREWPUB  ★  CLUB — Cinzel 500, cream, 0.4em letter-spacing, 18px
+Tagline: "Drinketh. Eateth. Meeteth." — Cormorant Garamond Italic, gold-pale, 22px, fade in delayed
+Two CTA buttons side by side: EXPLORE THE VENUE (gold filled) + VIEW MENU (ghost gold border)
+
+
+Scroll indicator: animated gold feather falling slowly at bottom center
+Background accent: Two vertical gold glitter splash columns on left and right edges (matching Logo 3) — CSS or canvas, subtle 20% opacity
+
+
+4. ABOUT SECTION
+
+Background: #080500 + faint gold stardust particle overlay
+Layout: Split — left side bold typographic statement, right side a vertical duo of stat cards
+Left side content:
+
+Eyebrow: ★ THE VENUE ★ in Cinzel, gold, spaced
+Heading: "Where The Bard Meets The Beat" in Cinzel Decorative, large gold gradient
+Body (Cormorant Garamond, cream, 20px/1.8 line-height): "20,000 sq. ft. of dual-concept luxury at the heart of Brigade Road. Two worlds. One address. Infinite nights."
+Horizontal gold rule
+Two-column layout below:
+
+Level 4 · boCHE Club — white heading, description: High-energy dance floor, world-class DJ nights, and Bengaluru's boldest nightlife experience
+Level 5 · ShakesBierre — gold heading, description: A Victorian microbrewery steeped in Shakespearean grandeur — craft beers, candlelit alcoves, and theatrical charm
+
+
+
+
+Right side: Two glowing stat cards (dark charcoal bg, gold border, gold number):
+
+20,000 sq. ft. of Venue
+2 Distinct Worlds
+4+ Signature Craft Beers
+1 Night You Won't Forget
+
+
+Entrance animation: Left text slides from left, stats stagger up from bottom on scroll
+
+
+5. ZONES — INTERACTIVE VIBE SECTION
+
+Background: Full-bleed black
+Section header: CHOOSE YOUR VIBE in Cinzel Decorative, gold gradient, centered, with animated ★ separators
+Layout: Large card carousel — one zone visible at a time, full width
+Interaction: Click LEFT arrow / RIGHT arrow to cycle through zones (Framer Motion AnimatePresence with slideX transition + gold flash on switch)
+Each Zone Card contains:
+
+Full-bleed atmospheric background image (placeholder gradients if no photo: each zone gets a unique dark gradient + gold overlay)
+Zone number: 01 / 04 in Cinzel, top-left, gold
+Zone name: large Cinzel Decorative, white with gold shimmer
+Short description: Cormorant Garamond italic, cream
+A mood badge (e.g., "✦ PREMIUM" or "✦ HIGH ENERGY")
+
+
+
+4 Zones:
+ZoneMood BadgeVibe LineShakesBierre SkyDeck✦ OPEN AIRStarlit evenings above Brigade Road with craft poursboCHE Dance Floor✦ HIGH ENERGYBengaluru's most electric night, every nightPrivate Karaoke Room✦ EXCLUSIVEYour stage. Your rules. Bookable for groups.Theater Floor✦ CURATEDLive performances, open mics, theatrical dining
+
+Swipe support on mobile
+Progress dots at bottom in gold
+
+
+6. MENU SECTION — ZIG-ZAG LAYOUT
+
+Background: Alternating #000 and #0D0900 per item
+Section header: THE MENU — Cinzel Decorative gold, with subtitle "Crafted with Drama. Served with Flair." in italic Cormorant
+Layout: Alternating Left-image/Right-text and Right-image/Left-text rows, each row 100vw, 60vh tall
+Each row: Image panel (placeholder or gradient with emoji/icon) + Text panel with:
+
+Category tag in Cinzel gold (e.g., SIGNATURE BEER)
+Item name in Cinzel Decorative white, large
+Description in Cormorant Garamond cream
+Small gold ★ divider
+
+
+
+Items (7 rows, alternating):
+TypeNameShort DescriptionSIGNATURE BEERRomeo's SwaggerA smooth wheat ale brewed for the hopeless romanticSIGNATURE BEERAle OthelloBold, dark, and dangerously complexSIGNATURE BEERTaming of the BrewA wild IPA with a spicy finish, untamed by designSIGNATURE BEERBrisky BrutusA crisp lager with a character-defining biteSIGNATURE FOODSpicy Chicken TikkaFire-kissed skewers with our house mint reductionSIGNATURE FOODBaked AlaskaA theatrical dessert worth the ovationSIGNATURE FOODMutton SheekSlow-spiced seekh with smoked coal char
+
+Image panels: Use rich dark placeholder gradients in gold/amber tones until real photos are provided
+Scroll animation: Each row slides in from its image-side with Framer Motion whileInView
+Hover state on image: Scale 1.04 + gold vignette overlay deepens
+
+
+7. AMENITIES & POLICIES
+
+Background: #080500 + light gold stardust
+Layout: Centered, 2-column grid of icon cards on desktop / 1-column on mobile
+Section heading: THE EXPERIENCE — Cinzel Decorative gold
+Subtitle: "Every detail, considered." — Cormorant italic
+
+4 Amenity Cards (dark charcoal card, gold top border, gold icon):
+
+🚗 Complimentary Valet Parking — Because your entrance should be effortless
+📶 High-Speed Free WiFi — Stay connected. Or don't. We won't judge.
+♿ Wheelchair Accessible — Designed for every guest, without exception
+🎟️ Club Entry Policy — Strictly 21+ · Smart Casual Dress Code · Right of Admission Reserved
+Divider below cards: ★ ───── DRESS TO IMPRESS ───── ★ in gold Cinzel
+
+
+8. FOOTER
+
+Background: #000 with a thin gold gradient top border
+Layout: 3-column grid — Info | Map | Social
+
+Column 1 — Info:
+
+Logo mark (SVG quill/silhouette, small)
+ShakesBierre in Cinzel Decorative gold, BREWPUB ★ CLUB below
+Address: Levels 4 & 5, EVA Mall, 60 Brigade Road, Ashok Nagar, Bengaluru 560025
+Hours:
+
+ShakesBierre: 12:00 PM – 1:00 AM (Daily)
+boCHE Club: 1:00 PM – 1:00 AM (Closed Mondays)
+
+
+Contact: +91 96069 79931 · knockknock@shakesbierre.com
+
+Column 2 — Embedded Map:
+
+Google Maps embed iframe (EVA Mall, Brigade Road)
+Gold border frame, 250px height
+
+Column 3 — Socials:
+
+Heading: FOLLOW THE DRAMA in Cinzel gold
+Instagram links: @boche.shakesbierre · @bocheclub — with hover gold glow
+Facebook link
+Social icons: custom gold SVG icons (not FontAwesome defaults)
+
+Footer bottom bar: © 2025 ShakesBierre Brewpub & Club · Crafted in Bengaluru — Cinzel, centered, gold at 40% opacity
+
+9. GLOBAL ANIMATION RULES
+TriggerAnimationPage loadGold curtain draw → split reveal (Framer AnimatePresence)Scroll into viewy: 40 → 0, opacity: 0 → 1, duration: 0.7, ease: "easeOut"HeadingsWord-by-word stagger, staggerChildren: 0.06Buttons (hover)Gold shimmer sweep left-to-right (CSS background-position keyframe)Zone switchx: 100% → 0, exit x: -100%, type: "spring", stiffness: 300Menu rowsSlide in from image side, whileInView, once: trueGold particlesCanvas: 60 particles, opacity: 0.2–0.7, slow upward drift, random twinkleLogo emblemSVG stroke draw on hero entrance, pathLength: 0 → 1, 2s gold strokeStats counterCount up animation on scroll into view
+
+10. DELIVERABLES CHECKLIST
+
+ Fully responsive (320px → 2560px)
+ Lighthouse Performance ≥ 85
+ All Framer Motion whileInView with once: true for performance
+ Canvas particle system or CSS equivalent for gold stardust
+ Google Fonts loaded with display=swap
+ OG meta tags: title, description, image
+ Smooth scroll with active nav link highlight
+ Contact section or mailto CTA
+ Reservation CTA button visible at all scroll positions (floating bottom-right on mobile)
+
+
+
+Design North Star: Every visitor should feel they've stepped into a Victorian theatre that moonlights as Bengaluru's most luxurious club. Gold is the language. Drama is the grammar. The brand mark — quill meeting silhouette — is the soul. Never let the page feel "ordinary."
