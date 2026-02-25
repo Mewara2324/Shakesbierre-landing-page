@@ -5,25 +5,32 @@
 
 @theme inline {
   --color-background: hsl(0 0% 0%);
-  --color-foreground: hsl(40.5 74.4% 87.2%); /* cream */
-  --color-card: hsl(45 100% 3.33%); /* charcoal */
+  --color-foreground: hsl(40.5 74.4% 87.2%);
+  /* cream */
+  --color-card: hsl(45 100% 3.33%);
+  /* charcoal */
   --color-card-foreground: hsl(40.5 74.4% 87.2%);
   --color-popover: hsl(37.5 100% 1.57%);
   --color-popover-foreground: hsl(40.5 74.4% 87.2%);
-  --color-primary: hsl(40 65.6% 47.6%); /* gold */
+  --color-primary: hsl(40 65.6% 47.6%);
+  /* gold */
   --color-primary-foreground: hsl(0 0% 0%);
-  --color-secondary: hsl(45 100% 3.33%); /* charcoal */
-  --color-secondary-foreground: hsl(40 65.6% 47.6%); /* gold */
+  --color-secondary: hsl(45 100% 3.33%);
+  /* charcoal */
+  --color-secondary-foreground: hsl(40 65.6% 47.6%);
+  /* gold */
   --color-muted: hsl(45 100% 3.33%);
-  --color-muted-foreground: hsl(42.8 80.6% 72.1%); /* gold-pale */
-  --color-accent: hsl(350.7 100% 56.6%); /* red-neon */
+  --color-muted-foreground: hsl(42.8 80.6% 72.1%);
+  /* gold-pale */
+  --color-accent: hsl(350.7 100% 56.6%);
+  /* red-neon */
   --color-accent-foreground: hsl(0 0% 100%);
   --color-destructive: hsl(0 100% 50%);
   --color-destructive-foreground: hsl(0 0% 100%);
   --color-border: hsl(40 65.6% 47.6% / 0.25);
   --color-input: hsl(40 65.6% 47.6% / 0.25);
   --color-ring: hsl(40 65.6% 47.6%);
-  
+
   --color-black-rich: hsl(37.5 100% 1.57%);
   --color-charcoal: hsl(45 100% 3.33%);
   --color-gold: hsl(40 65.6% 47.6%);
@@ -37,7 +44,7 @@
   --font-body: 'Cormorant Garamond', serif;
   --font-sans-bold: 'Poppins', sans-serif;
   --font-script: 'Dancing Script', cursive;
-  
+
   --animate-shimmer: shimmer 2.5s linear infinite;
 }
 
@@ -45,6 +52,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply font-body antialiased bg-black text-cream selection:bg-gold selection:text-black;
   }
@@ -78,12 +86,135 @@
   from {
     background-position: 200% 0;
   }
+
   to {
     background-position: -200% 0;
   }
 }
 
 @keyframes grow-x {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ========== FLOATING SHOWCASE CARDS ========== */
+
+@keyframes float-bob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(var(--bob-distance, -12px));
+  }
+}
+
+/* ========== CHROMATIC ABERRATION / RGB SPLIT ========== */
+
+@layer utilities {
+  .text-rgb-split {
+    text-shadow:
+      -2px 0 rgba(255, 0, 0, 0.4),
+      2px 0 rgba(0, 255, 255, 0.4);
+    animation: rgb-shift 4s ease-in-out infinite alternate;
+  }
+
+  .scanline-overlay {
+    position: relative;
+  }
+
+  .scanline-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.015) 2px,
+        rgba(255, 255, 255, 0.015) 4px);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .glitch-line {
+    position: relative;
+  }
+
+  .glitch-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 148, 42, 0.5), transparent);
+    animation: glitch-scan 4s linear infinite;
+  }
+
+  .snap-scroll {
+    scroll-snap-type: y proximity;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+  }
+}
+
+@keyframes rgb-shift {
+
+  0%,
+  100% {
+    text-shadow:
+      -2px 0 rgba(255, 0, 0, 0.4),
+      2px 0 rgba(0, 255, 255, 0.4);
+  }
+
+  50% {
+    text-shadow:
+      -1px 0 rgba(255, 0, 0, 0.2),
+      1px 0 rgba(0, 255, 255, 0.2);
+  }
+}
+
+@keyframes glitch-scan {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* ========== REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+  .text-rgb-split {
+    animation: none !important;
+    text-shadow: none !important;
+  }
+
+  .scanline-overlay::before {
+    display: none !important;
+  }
+
+  .glitch-line::after {
+    animation: none !important;
+  }
 }
